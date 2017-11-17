@@ -1,0 +1,500 @@
+<!doctype html public "-//W30//DTD W3 HTML 2.0//EN">
+
+<HTML>
+
+<!-- This file was generated using SDF 2.001 by
+     Ian Clatworthy (ianc@mincom.com). SDF is freely
+     available from http://www.mincom.com/mtr/sdf. -->
+
+<HEAD>
+<TITLE>4DML Transformation Utility v0.691 Reference Manual</TITLE>
+</HEAD>
+<BODY>
+
+<DIV CLASS="header">
+<DIV CLASS="navigate">
+</DIV>
+</DIV>
+<DIV CLASS="title">
+<H1 CLASS="doc-title">4DML Transformation Utility v0.691 Reference Manual</H1>
+<ADDRESS CLASS="doc-author">Silas S. Brown</ADDRESS>
+<ADDRESS CLASS="doc-modified">26 October 2006</ADDRESS>
+<BR CLEAR="All">
+</DIV>
+<DIV CLASS="contents">
+<HR>
+<H2>Table of Contents</H2>
+<UL>
+<A HREF="#Introduction">1. Introduction</A>
+<BR>
+<A HREF="#Invocation">2. Invocation</A><UL>
+<A HREF="#Specifying the input">2.1. Specifying the input</A><UL>
+<A HREF="#-input (Read XML)">2.1.1. -input (Read XML)</A>
+<BR>
+<A HREF="#-spaninput (Read XML with COLSPAN/ROWSPAN)">2.1.2. -spaninput (Read XML with COLSPAN/ROWSPAN)</A>
+<BR>
+<A HREF="#-inpspec (Read XML with overlaps)">2.1.3. -inpspec (Read XML with overlaps)</A>
+<BR>
+<A HREF="#-spaninpspec (Read XML with colspan/rowspan and overlaps)">2.1.4. -spaninpspec (Read XML with colspan/rowspan and overlaps)</A>
+<BR>
+<A HREF="#-minput (Read MML)">2.1.5. -minput (Read MML)</A>
+<BR>
+<A HREF="#-link (Add links to input)">2.1.6. -link (Add links to input)</A></UL>
+<BR>
+<A HREF="#Specifying the model">2.2. Specifying the model</A><UL>
+<A HREF="#-model (XML model)">2.2.1. -model (XML model)</A>
+<BR>
+<A HREF="#-cmod (CML on command line)">2.2.2. -cmod (CML on command line)</A>
+<BR>
+<A HREF="#-cmodel (Embedded CML)">2.2.3. -cmodel (Embedded CML)</A>
+<BR>
+<A HREF="#-pmodel (Python module)">2.2.4. -pmodel (Python module)</A>
+<BR>
+<A HREF="#-python (Auxiliary Python module)">2.2.5. -python (Auxiliary Python module)</A>
+<BR>
+<A HREF="#Model as part of the input">2.2.6. Model as part of the input</A></UL>
+<BR>
+<A HREF="#Specifying the function">2.3. Specifying the function</A><UL>
+<A HREF="#-transform (Perform transform)">2.3.1. -transform (Perform transform)</A>
+<BR>
+<A HREF="#-gui (Run GUI)">2.3.2. -gui (Run GUI)</A>
+<BR>
+<A HREF="#-guidebug (Run GUI with call trace)">2.3.3. -guidebug (Run GUI with call trace)</A></UL>
+<BR>
+<A HREF="#Output">2.4. Output</A>
+<BR>
+<A HREF="#Improving the speed">2.5. Improving the speed</A>
+<BR>
+<A HREF="#Internationalisation and support for many characters">2.6. Internationalisation and support for many characters</A></UL>
+<BR>
+<A HREF="#Input in XML">3. Input in XML</A><UL>
+<A HREF="#Special attributes for overlapping markup">3.1. Special attributes for overlapping markup</A></UL>
+<BR>
+<A HREF="#Input in MML (Matrix Markup Language)">4. Input in MML (Matrix Markup Language)</A><UL>
+<A HREF="#MML basics">4.1. MML basics</A>
+<BR>
+<A HREF="#Blocks">4.2. Blocks</A><UL>
+<A HREF="#Initial element name">4.2.1. Initial element name</A>
+<BR>
+<A HREF="#have ... as">4.2.2. have ... as</A>
+<BR>
+<A HREF="#also">4.2.3. also</A>
+<BR>
+<A HREF="#special">4.2.4. special</A></UL>
+<BR>
+<A HREF="#Emacs major mode">4.3. Emacs major mode</A></UL>
+<BR>
+<A HREF="#Model basics">5. Model basics</A>
+<BR>
+<A HREF="#The Compact Model Language (CML)">6. The Compact Model Language (CML)</A>
+<BR>
+<A HREF="#Models as Python Modules">7. Models as Python Modules</A><UL>
+<A HREF="#Syntax">7.1. Syntax</A>
+<BR>
+<A HREF="#Filter methods">7.2. Filter methods</A>
+<BR>
+<A HREF="#Using hash-bang to execute models">7.3. Using hash-bang to execute models</A></UL>
+<BR>
+<A HREF="#Model Parameters">8. Model Parameters</A><UL>
+<A HREF="#Changing the markup (XML)">8.1. Changing the markup (XML)</A><UL>
+<A HREF="#rename">8.1.1. rename</A>
+<BR>
+<A HREF="#from">8.1.2. from</A>
+<BR>
+<A HREF="#allow-empty">8.1.3. allow-empty</A>
+<BR>
+<A HREF="#no-input">8.1.4. no-input</A>
+<BR>
+<A HREF="#_">8.1.5. _</A></UL>
+<BR>
+<A HREF="#Changing the markup (not XML)">8.2. Changing the markup (not XML)</A><UL>
+<A HREF="#nomarkup">8.2.1. nomarkup</A>
+<BR>
+<A HREF="#before">8.2.2. before</A>
+<BR>
+<A HREF="#after">8.2.3. after</A>
+<BR>
+<A HREF="#between">8.2.4. between</A>
+<BR>
+<A HREF="#group">8.2.5. group</A>
+<BR>
+<A HREF="#group-size">8.2.6. group-size</A>
+<BR>
+<A HREF="#begin">8.2.7. begin</A>
+<BR>
+<A HREF="#end">8.2.8. end</A></UL>
+<BR>
+<A HREF="#Adjusting the choice of elements processed">8.3. Adjusting the choice of elements processed</A><UL>
+<A HREF="#start-at">8.3.1. start-at</A>
+<BR>
+<A HREF="#end-at">8.3.2. end-at</A>
+<BR>
+<A HREF="#number">8.3.3. number</A>
+<BR>
+<A HREF="#renumber">8.3.4. renumber</A>
+<BR>
+<A HREF="#value">8.3.5. value</A>
+<BR>
+<A HREF="#total">8.3.6. total</A>
+<BR>
+<A HREF="#other-values">8.3.7. other-values</A>
+<BR>
+<A HREF="#external">8.3.8. external</A>
+<BR>
+<A HREF="#broaden">8.3.9. broaden</A></UL>
+<BR>
+<A HREF="#Changing the behaviour of child-element processing">8.4. Changing the behaviour of child-element processing</A><UL>
+<A HREF="#children-only">8.4.1. children-only</A>
+<BR>
+<A HREF="#sequential">8.4.2. sequential</A>
+<BR>
+<A HREF="#flatten">8.4.3. flatten</A>
+<BR>
+<A HREF="#no-strip">8.4.4. no-strip</A>
+<BR>
+<A HREF="#merge">8.4.5. merge</A>
+<BR>
+<A HREF="#include-rest">8.4.6. include-rest</A>
+<BR>
+<A HREF="#reverse">8.4.7. reverse</A></UL>
+<BR>
+<A HREF="#Recursion and subroutines">8.5. Recursion and subroutines</A><UL>
+<A HREF="#call">8.5.1. call</A>
+<BR>
+<A HREF="#export-code">8.5.2. export-code</A></UL>
+<BR>
+<A HREF="#Numbering and alternative markup">8.6. Numbering and alternative markup</A><UL>
+<A HREF="#count">8.6.1. count</A>
+<BR>
+<A HREF="#if-changed">8.6.2. if-changed</A></UL>
+<BR>
+<A HREF="#Error checking">8.7. Error checking</A><UL>
+<A HREF="#expected">8.7.1. expected</A></UL>
+<BR>
+<A HREF="#Miscellaneous">8.8. Miscellaneous</A><UL>
+<A HREF="#wildcard">8.8.1. wildcard</A>
+<BR>
+<A HREF="#debugdump">8.8.2. debugdump</A>
+<BR>
+<A HREF="#python">8.8.3. python</A></UL></UL>
+<BR>
+<A HREF="#Author">9. Author</A></UL>
+</DIV>
+<DIV CLASS="main">
+<HR>
+<H1><A NAME="Introduction">1. Introduction</A></H1>
+<P>The 4DML transformation utility can be used for the rapid prototyping of complex structural transformations on data.</P>
+<P>4DML is a data structure that can represent both tree-like and matrix-like structures in any number of dimensions and supports multiple independent structures over the same data. The transformation utility converts data into 4DML and then reads it out in the order dictated by a `model', which shows the desired structure of the output.</P>
+<HR>
+<H1><A NAME="Invocation">2. Invocation</A></H1>
+<P>This describes the invocation and command-line arguments of the 4DML transformation utility.</P>
+<H2><A NAME="Specifying the input">2.1. Specifying the input</A></H2>
+<H3><A NAME="-input (Read XML)">2.1.1. -input (Read XML)</A></H3>
+<P>Read the input from an XML file.  The next argument specifies the input filename; a filename of - represents the standard input.</P>
+<H3><A NAME="-spaninput (Read XML with COLSPAN/ROWSPAN)">2.1.2. -spaninput (Read XML with COLSPAN/ROWSPAN)</A></H3>
+<P>Read the input from an XML file, recognising ROWSPAN and COLSPAN attributes according to the semantics of HTML tables. Position numbers are adjusted so that the position number of an element reflects which column it begins in, taking ROWSPAN and COLSPAN into account.  The next argument specifies the input filename; a filename of - represents the standard input.</P>
+<H3><A NAME="-inpspec (Read XML with overlaps)">2.1.3. -inpspec (Read XML with overlaps)</A></H3>
+<P>Read the input from an XML file, but recognise the special attributes for overlapping markup.  The next argument specifies the input filename; a filename of - represents the standard input.</P>
+<H3><A NAME="-spaninpspec (Read XML with colspan/rowspan and overlaps)">2.1.4. -spaninpspec (Read XML with colspan/rowspan and overlaps)</A></H3>
+<P>This option is a combination of -spaninput and -inpspec.</P>
+<H3><A NAME="-minput (Read MML)">2.1.5. -minput (Read MML)</A></H3>
+<P>Read the input from an MML (Matrix Markup Language) file. The next argument specifies the input filename; a filename of - represents the standard input.</P>
+<P>The Unix installation script also sets up a command `mml2xml', to convert MML (on standard input) into XML.</P>
+<H3><A NAME="-link (Add links to input)">2.1.6. -link (Add links to input)</A></H3>
+<P>Automatically adds ``link'' elements that join together any two or more strings that happen to be the same.  These elements are independent from the rest of the markup and can be ignored if not needed.  For a description of why they might be useful, see the documentation for the ``broaden'' model parameter (under ``Model parameters'' and ``Adjusting the choice of elements processed'').</P>
+<P>The link elements will be named according to what is specified here, so you can say ``-link autolink'' if you want them to be called ``autolink'', or ``-link link'' if you want them to be called ``link''.  Choose something that does not conflict with the other names you are using.</P>
+<P>If the model doesn't need this parameter (and if you wrote it then you should know if it does), specifying this parameter should be harmless, but it slows the program down and takes more memory.</P>
+<H2><A NAME="Specifying the model">2.2. Specifying the model</A></H2>
+<H3><A NAME="-model (XML model)">2.2.1. -model (XML model)</A></H3>
+<P>Read the model from an XML file.  The next argument specifies the input filename; a filename of - represents the standard input.</P>
+<H3><A NAME="-cmod (CML on command line)">2.2.2. -cmod (CML on command line)</A></H3>
+<P>The next argument specifies the model in CML (Compact Model Language) as a string.</P>
+<H3><A NAME="-cmodel (Embedded CML)">2.2.3. -cmodel (Embedded CML)</A></H3>
+<P>Read the model from a text file with embedded CML (Compact Model Language).  The next argument specifies the filename; a filename of - represents the standard input.</P>
+<P>The Unix installation script also sets up a command `cml2xml', to convert embedded CML (on standard input) into XML.</P>
+<H3><A NAME="-pmodel (Python module)">2.2.4. -pmodel (Python module)</A></H3>
+<P>Load a Python module for introspection, and derive the model from that.  The next argument specifies the Python module to load.  A full pathname is also acceptable.</P>
+<H3><A NAME="-python (Auxiliary Python module)">2.2.5. -python (Auxiliary Python module)</A></H3>
+<P>Load a Python module, but do not introspect it; the functions in the module are accessible from the `python' model parameter.  The model itself should be loaded from another format (such as CML).</P>
+<H3><A NAME="Model as part of the input">2.2.6. Model as part of the input</A></H3>
+<P>If no model is specified on the command line then it is looked for in the input, under an element called `model' (the operation `model number=1' will be executed to extract it).  The model is assumed to be in CML regardless of the input format.  The element `model' is not removed from the input.</P>
+<H2><A NAME="Specifying the function">2.3. Specifying the function</A></H2>
+<H3><A NAME="-transform (Perform transform)">2.3.1. -transform (Perform transform)</A></H3>
+<P>Perform a model transform and output the result.  This is the default.</P>
+<H3><A NAME="-gui (Run GUI)">2.3.2. -gui (Run GUI)</A></H3>
+<P>Run the GUI instead of performing any transform at the command line.</P>
+<H3><A NAME="-guidebug (Run GUI with call trace)">2.3.3. -guidebug (Run GUI with call trace)</A></H3>
+<P>Run the GUI, and perform a ``Capture call tree'' operation to show the details of how the model was interpreted.</P>
+<H2><A NAME="Output">2.4. Output</A></H2>
+<P>Output is always written to the standard output.  You can use the shell to redirect it to a file or to pipe it to another command.</P>
+<H2><A NAME="Improving the speed">2.5. Improving the speed</A></H2>
+<P>If the problem is that you are running out of RAM, then try setting the no_psyco environment variable before running 4DML.  This suppresses the use of Psyco (an optimiser which can often take lots of RAM) and also suppresses the use of partial-result caches (these caches save time provided that enough RAM is available, but if RAM is in short supply, or you are transforming a very large dataset, then it's best not to have them).</P>
+<P>The Unix installation script installs other commands besides 4dml, including:</P>
+<UL>
+<LI>4dml2.2: Runs 4DML using Python version 2.2.  This is a hack to support systems that have more than one version of Python installed and that have 2.1 as the default, e.g. Debian Woody.  If Psyco (the Python Specialising Compiler) is installed, 4DML can take advantage of it, but only if it is running on Python version 2.2 or above.
+<LI>fast4dml: Runs 4DML with no error checking.  This may give a little additional speed, but any errors could go undetected, leading to unusual results.  (Bug: This currently assumes that python is located in /usr/bin)
+<LI>fast4dml2.2: A combination of both of the above.</UL>
+<P>Additionally, it is possible to instruct the 4DML utility to send its fourspace to a faster computer (via SSH or similar) and perform processing on that.  This has not yet been documented.</P>
+<H2><A NAME="Internationalisation and support for many characters">2.6. Internationalisation and support for many characters</A></H2>
+<P>The 4DML transformation utility assumes by default that its input is encoded in UTF-8.  Output is also in UTF-8.  If necessary, a utility such as <I>tcs</I> can be used to translate between this and other encodings (such as GB2312, Big5, JIS, etc).</P>
+<HR>
+<H1><A NAME="Input in XML">3. Input in XML</A></H1>
+<P>Each element in the XML is given a depth number and a position number.  The top-level element is at depth 1, and position numbers begin again at 1 with each level of recursion.  For example, in the markup</P>
+<PRE>
+ &lt;TR&gt;&lt;TD/&gt;&lt;TD/&gt;&lt;/TR&gt;
+ &lt;TR&gt;&lt;TD/&gt;&lt;TD/&gt;&lt;/TR&gt;
+</PRE>
+<P>position numbers are assigned as follows:</P>
+<PRE>
+ &lt;TR p=1&gt;&lt;TD p=1/&gt;&lt;TD p=2/&gt;&lt;/TR&gt;
+ &lt;TR p=2&gt;&lt;TD p=1/&gt;&lt;TD p=2/&gt;&lt;/TR&gt;
+</PRE>
+<P>Hence, a ``for each TD'' operation, if not enclosed by ``for each TR'', will cut across the TR elements when grouping the TD elements together.</P>
+<H2><A NAME="Special attributes for overlapping markup">3.1. Special attributes for overlapping markup</A></H2>
+<P>These are not recognised unless specifically asked for on the command line.</P>
+<P>The attribute `_InitPos' sets the position number of this element, overriding the position number that would have been given to it by default.</P>
+<P>Elements that have the special attributes described below should be empty.  The name of the element should correspond with the name of a higher-level element that is in progress at that point, and the attributes specify directives for manipulating the position number of that higher-level element, while it is in progress.  Hence the higher-level element can be divided into two without interrupting the intervening markup.  The element with special attributes does not itself appear in the 4DML.</P>
+<P>The attribute `_IncrementPos' causes the position number of the higher-level element to be incremented.</P>
+<P>The attribute `_SetPos' causes the position number of the higher-level element to be set to the given value.</P>
+<P>The attribute `_Rename' changes the name of the higher-level element to the one given.  This should not normally be used.</P>
+<P>The attribute `_Unfinished' signifies that we are not through with adjusting positioning information.  This means that, if there is another element following with no intervening character data, then no empty element will be recorded to note the new position number at this point.  If you wish to change the position numbers of several higher-level elements in one operation then it is generally a good idea to use the `_Unfinished' attribute so as to prevent an inconsistent state being recorded.</P>
+<HR>
+<H1><A NAME="Input in MML (Matrix Markup Language)">4. Input in MML (Matrix Markup Language)</A></H1>
+<H2><A NAME="MML basics">4.1. MML basics</A></H2>
+<P>Matrix Markup Language (MML) is a text-based language that can represent structure in several ways, such as by using ``begin''/``end'' pairs, ``element: value'' lines, and matrix-like blocks.  It is meant to be a convenient way of hand-coding data that is both hierarchical and matrix-like in structure.</P>
+<P>``begin e'' and ``end e'' cause everything in between to be enclosed in an element named ``e''.  An alternative way of representing this is ``e:'' followed by some text; the rest of the line is treated as the contents of element ``e''. The construct ``advance e'' will cause the position of ``e'' (an element currently in progress) to be advanced, even if it is not the innermost element that is currently in progress.</P>
+<P>Files in MML are enclosed in an implicit ``document'' element.</P>
+<P><HR WIDTH="80%" ALIGN="Left">
+<STRONG>Note: </STRONG>When using ``e:'' followed by some text, the rest of the line should be non-empty, otherwise the next non-empty line will be used instead.  (This can be useful when working with very narrow displays.)
+<HR WIDTH="80%" ALIGN="Left"></P>
+<H2><A NAME="Blocks">4.2. Blocks</A></H2>
+<P>An MML matrix-like block is enclosed within ``!block'' and ``!endblock''.  Each block has two parts, a header and a body.  The first blank line separates the header from the body.  The header specifies the meaning of the separation symbols that are to be used in the body.  The following constructs can appear in the header:</P>
+<H3><A NAME="Initial element name">4.2.1. Initial element name</A></H3>
+<P>The first word after a ``!block'' can be the name of an element in which the whole block is to be contained, so long as this is not a reserved word (if it is a reserved word then you have to write a ``begin''/``end'' construct around the block instead).</P>
+<H3><A NAME="have ... as">4.2.2. have ... as</A></H3>
+<P>The construct ``have A as B'' causes the symbol A to be used as a separator, advancing the position number of an element called B.</P>
+<P>If there are several ``have...as'' constructs, then they are given increasing depth numbers, and an advancement of a higher-level position number (i.e. lower depth number) causes all positions at lower levels to be reset to 1.</P>
+<P>As a special case, the keyword ``paragraph'' matches one or more blank lines; the keyword ``newline'' matches a single newline character, and the keyword ``whitespace'' matches any amount of whitespace.  If they are all used, paragraph, newline and whitespace should be specified in that order, because a new paragraph can be interpreted as new lines, which in turn can be interpreted as whitespace.</P>
+<P>The keyword ``character'' causes the input to be split into individual characters (like setting the separator to the empty string); use this with care.</P>
+<P>If desired, multiple ``have...as'' constructs can be amalgamated thus: ``have A1 A2 A3... as B1 B2 B3...''</P>
+<H3><A NAME="also">4.2.3. also</A></H3>
+<P>The word ``also'' can be used to separate independent groups of ``have...as'' constructs.  Changes of positions in one group will not change the positions in the others.  Hence the block's body can represent multiple, independent hierarchies over the same data.</P>
+<H3><A NAME="special">4.2.4. special</A></H3>
+<P>This can be used to specify special ways of interpreting some operators.  Currently, it can be used as follows:</P>
+<PRE>
+ special: A maximum 5 per B
+</PRE>
+<P>Here, it is specified that there are at most 5 elements called A; effectively, all the A's are grouped together into B's, with a maximum of 5 per group.</P>
+<PRE>
+ special: A label 4 as B
+</PRE>
+<P>Specifies that the 4th instance of element A should really be called B (rather than A).  Can be useful if you need to define an operator whose parameters are completely different things (although this should be rare).</P>
+<PRE>
+ special: A switches B
+</PRE>
+<P>Here the operator A will switch the element B to an arbitrary position.  The position is determined by a mnemonic that occurs after A, before the next space.</P>
+<P>For example, if A is / and B is ``project'', then /myprj (followed by whitespace) will cause the following data to be under a ``project'' element with position given by the mnemonic ``myprj'' (the textual mnemonics that you use are automatically given numbers).</P>
+<P>This can be a useful shortcut if you are organising a large amount of unsorted data into several categories.</P>
+<PRE>
+ special: A switches.
+</PRE>
+<P>(i.e. a dot after ``switches'') is the same as above, except that the B is defined as the same as the mnemonic.  In other words, immediately after you use the operator A, you will specify the name of the element that the following text is to appear under, followed by whitespace.</P>
+<H2><A NAME="Emacs major mode">4.3. Emacs major mode</A></H2>
+<P>A major mode is available for editing MML files with emacs and xemacs.  This is supplied with 4dml as 4dml.el (will be compiled to 4dml.elc if emacs is available at install time). To install it, you need to put something like this in your emacs init file (remembering to substitute the correct installation directory if necessary):</P>
+<PRE>
+ (autoload '4dml-mml-mode
+ &quot;/usr/local/lib/site-python/4dml/4dml.elc&quot;
+ &quot;Major mode for editing 4DML MML files&quot; t)
+ (setq auto-mode-alist
+ (append '((&quot;\\.mml\\'&quot; . 4dml-mml-mode))
+ auto-mode-alist))
+</PRE>
+<P>The mode should syntax highlight reasonably correctly when loading a file or doing font-lock-fontify-buffer, but might not be so good when actually editing, especially when editing !block constructs, since font-lock only considers one line at a time.  c.f. HTML mode problems in comments etc.  If in doubt, do M-x font-lock-fontify-buffer.</P>
+<HR>
+<H1><A NAME="Model basics">5. Model basics</A></H1>
+<P>By default, each element in the model will cause the following things to occur.</P>
+<OL>
+<LI>The input is searched for all elements that match the name of the model element.  Only such elements at the highest level at which they occur will be used.  The search will cut across all other markup.
+<LI>The input is divided into groups, one for each distinct element that was found, and the groups are sorted by position number.  Any other markup from the input will be included in each group.
+<LI>Any model code that occurs within the current model element will be executed once for each group.
+<LI>If the model element is empty (a leaf node), then the data from each group is copied to the output, discarding all remaining markup.</OL>
+<P>Thus an element X in the model is effectively saying ``for each X''.</P>
+<P>Arbitrary text in the model is copied to the output whenever it is encountered.</P>
+<P>Model elements can be given attributes (parameters) to specify their behaviour in a more flexible manner; see the section on Model Parameters.</P>
+<HR>
+<H1><A NAME="The Compact Model Language (CML)">6. The Compact Model Language (CML)</A></H1>
+<P>CML is a compact markup language for models, which often have elements packed inside each other (i.e. of the form &lt;x&gt;&lt;y&gt;&lt;z&gt;...).  CML makes that kind of hierarchy quicker to type.</P>
+<P>Use X/Y/Z to put an element Z within a Y, within an X.</P>
+<P>Any element name can be followed by attributes, with whitespace before each attribute.  Attributes take the form name [ =value ] where the text enclosed in [] is optional (value defaults to 1; this is intended for use when the attribute merely has to be present).  Values should be quoted with &quot;...&quot; if they contain any unusual characters.</P>
+<P>Use a comma (,) to separate two or more elements that are at the same level.  This has a lower precedence than / but you can use parentheses.</P>
+<P>Arbitrary text can appear in quotes in place of an element. It can be enclosed within ]] and [[cml, which imply commas either side of them unless they are being used to specify the value of a parameter; in this case the text can span multiple lines and include any character such as quotes.  When CML is embedded in a text file, the whole file is automatically enclosed within those operators, so the effect is that the CML parts of the file are delineated by [[cml and ]].</P>
+<P>Models in CML are enclosed in an implicit ``document'' element, which has implicit attributes ``nomarkup'' and ``no-input''.</P>
+<HR>
+<H1><A NAME="Models as Python Modules">7. Models as Python Modules</A></H1>
+<P>Models can be specified as Python modules that are examined by introspection.  This makes it possible to embed arbitrary Python code within 4DML models.</P>
+<H2><A NAME="Syntax">7.1. Syntax</A></H2>
+<P>The model will be derived from the Python module by introspection.  A class in the Python module corresponds to an element in the model, and this class can have other classes as members (inner classes) to signify child elements.  Attributes are specified as variables within the class.  For example:</P>
+<PRE>
+ class paragraph:
+   between = &quot;\\par &quot;
+   class word:
+     between = &quot; &quot;
+</PRE>
+<P>Any underlines (_) in attributes are changed into hyphens (-).</P>
+<P>If necessary, an attribute `realname' can specify the real name of the model element, should the class have to be named something else (such as to avoid duplication).  If there are several classes (elements) at the same level, then their order may be specified in a list, such as</P>
+<PRE>
+ order = [ class1, class2, .. ]
+</PRE>
+<P>after the classes have been defined.  Some kind of order specification is necessary because Python classes are dictionaries; the items are not necessarily stored in the order in which they appear in the source code.</P>
+<P>If (and only if) the Python module specifies more than one top-level element, then it is enclosed in an implicit ``document'' element.</P>
+<H2><A NAME="Filter methods">7.2. Filter methods</A></H2>
+<P>These can be used to code arbitrary low-level filters for the data, to be applied during the model transform.</P>
+<P>If a class has a method called ``filter'', and it is a leaf node in the model (i.e. it causes data to be copied to the output), then the class will be instantiated, and the ``filter'' method will be called for each string that is to be output (by that particular leaf node).  The ``filter'' method is expected to take the string as an argument and to return a replacement string.</P>
+<H2><A NAME="Using hash-bang to execute models">7.3. Using hash-bang to execute models</A></H2>
+<P>In Unix-based systems, you can use the ``hash-bang'' feature of the kernel to make the Python-based models executable directly.  Some kernels have problems running 4DML with hash-bang (because 4DML is itself a script), but you can use a hack such as:</P>
+<PRE>
+ #!/bin/bash
+ &quot;eval&quot; &quot;exec 4dml -pmodel $0&quot;
+</PRE>
+<P>Other arguments can be added if desired.</P>
+<HR>
+<H1><A NAME="Model Parameters">8. Model Parameters</A></H1>
+<P>These parameters can be added as attributes to any element of a model, to change the behaviour of the model processor with respect to that element or its children.</P>
+<H2><A NAME="Changing the markup (XML)">8.1. Changing the markup (XML)</A></H2>
+<H3><A NAME="rename">8.1.1. rename</A></H3>
+<P>Specifies a new name for the element, to be used in the XML output.  This is useful if the nomenclature is different (e.g. &lt;BAR rename=&quot;MEASURE&quot;&gt;).  Element names that are empty (rename=&quot;&quot;) are accepted; when converting to XML, no markup is output around such elements (an alias for 'rename=&quot;&quot;' is 'discard').</P>
+<H3><A NAME="from">8.1.2. from</A></H3>
+<P>This is an alternative to `rename'; it specifies the <I>old</I> name of the element.  For example, &lt;BAR rename=&quot;MEASURE&quot;&gt; is equivalent to &lt;MEASURE from=&quot;BAR&quot;&gt;.  You might want to use this if you find it easier to specify the desired structure in the element names.</P>
+<P>Note that if you use both `from' and `rename', the name of the element itself becomes meaningless.</P>
+<H3><A NAME="allow-empty">8.1.3. allow-empty</A></H3>
+<P>Allows the element to be empty in the output.  Normally the element is only included if there is some data in it.  If `allow-empty' is set then the element will appear in the output whether or not there is data available (although it will not appear if there is a model within it and that model does not cause any output).</P>
+<H3><A NAME="no-input">8.1.4. no-input</A></H3>
+<P>If present, specifies that this element is to be copied directly to the output, regardless of the input.  The name of the element itself can be used to specify the name of the output element.  This can be used to specify XML markup that is to appear in the output unconditionally, perhaps enclosing the parts of the output that depend on the input.</P>
+<H3><A NAME="_">8.1.5. _</A></H3>
+<P>Any parameter beginning with an underline (_) will be copied directly to the output as an attribute, with the underline removed.  This is a way of hard-coding output attributes into the model.</P>
+<H2><A NAME="Changing the markup (not XML)">8.2. Changing the markup (not XML)</A></H2>
+<P>These parameters were designed for producing non-XML markup, but they are also allowed when producing XML markup.</P>
+<H3><A NAME="nomarkup">8.2.1. nomarkup</A></H3>
+<P>Equivalent to setting rename=&quot;&quot; for this and all child elements; causes no XML markup to be output.  Can be used for the top-level element when the output is not XML (can also be used for non-XML fragments within an XML document).</P>
+<P>If any element under a `nomarkup' element does have a `rename' or `from' attribute, then the `nomarkup' does not apply to that particular element, although it does apply to its children.  This does not affect whether or not the whole output is treated as XML (if the top-level element is `nomarkup' then it is treated as plain text, and any elements underneath that have `rename' or `from' attributes are written into the text in normal XML syntax).</P>
+<H3><A NAME="before">8.2.2. before</A></H3>
+<P>Specifies any text that is to be included in the output before the first one of these elements.</P>
+<H3><A NAME="after">8.2.3. after</A></H3>
+<P>Specifies any text that is to be included in the output after the last one of these elements.</P>
+<H3><A NAME="between">8.2.4. between</A></H3>
+<P>Specifies any text that is to be included in the output between each of these elements (but not before the first or after the last).</P>
+<H3><A NAME="group">8.2.5. group</A></H3>
+<P>Specifies any text that is to be included in the output between each of these elements, as an alternative to the 'between' text.  The 'group' text is used instead of the 'between' text every 10th element (the value of 10 can be changed by specifying group-size).  This can be used as a rudimentary way of dividing the elements into groups for readability.</P>
+<H3><A NAME="group-size">8.2.6. group-size</A></H3>
+<P>Specifies the number of elements to count before substituting 'group' for 'between' for one element.</P>
+<H3><A NAME="begin">8.2.7. begin</A></H3>
+<P>Specifies any text that is to be included in the output inside each one of these elements, at its beginning.</P>
+<H3><A NAME="end">8.2.8. end</A></H3>
+<P>Specifies any text that is to be included in the output inside each one of these elements, at its end.</P>
+<H2><A NAME="Adjusting the choice of elements processed">8.3. Adjusting the choice of elements processed</A></H2>
+<H3><A NAME="start-at">8.3.1. start-at</A></H3>
+<P>Does not process any elements before the specified position number; the first position number is 1.  Note that this is absolute; if the currently-available position numbers start at 3, for example, then start-at=3 will start at the first one.  Use the `renumber' attribute as well if this is not desirable.</P>
+<H3><A NAME="end-at">8.3.2. end-at</A></H3>
+<P>Does not process any elements after the specified position number; the first position number is 1.  Note that this is absolute; if the currently-available position numbers start at 3, for example, then end-at=3 will end at the first one. Use the `renumber' attribute as well if this is not desirable.</P>
+<H3><A NAME="number">8.3.3. number</A></H3>
+<P>Sets both start-at and end-at to the given value.  Only elements with the given position will be processed.  See also `renumber'.</P>
+<H3><A NAME="renumber">8.3.4. renumber</A></H3>
+<P>Changes the behaviour of `start-at', `end-at' and `number' so that the position numbers are effectively renumbered. This does not affect any other processing of position numbers.</P>
+<H3><A NAME="value">8.3.5. value</A></H3>
+<P>Restricts which elements are processed by including only those that have the given value as their contents. This can be used to substitute one value for another.  See also `other-values'.</P>
+<H3><A NAME="total">8.3.6. total</A></H3>
+<P>Restricts which elements are processed by including only those that occur exactly the given number of times in the data that is currently under consideration.  This can be used for different processing depending on how many there are.  See also `other-values'.</P>
+<H3><A NAME="other-values">8.3.7. other-values</A></H3>
+<P>Specified immediately after any `value' or `total' restrictions; matches only the elements that have not already been matched by the above restrictions.</P>
+<H3><A NAME="external">8.3.8. external</A></H3>
+<P>Specifies whether ``foreach'' should search the display stack (see below).  A value of &quot;never&quot; avoids searching the display stack; &quot;always&quot; searches <I>only</I> the display stack. The default action is to search the display stack only if no result is found in the current data.</P>
+<P>Consider the effect of the model</P>
+<PRE>
+ &lt;SCORE&gt; &lt;PART&gt; &lt;TITLE/&gt; . . .
+</PRE>
+<P>on the input:</P>
+<PRE>
+ &lt;SCORE&gt;
+   &lt;TITLE&gt; . . &lt;/TITLE&gt;
+   &lt;PART&gt; . . &lt;/PART&gt;
+   . . .
+</PRE>
+<P>The intention here is that each PART bears the TITLE of the SCORE.  However, TITLE's data is outside the scope of the PART element and will therefore not be present in the corresponding subset of the input when PART is processed. It can be reached by searching a display stack of fourspaces that contain all points not present in any of the subspaces generated by the model. Hence, if no TITLEs are found in the PART, then the SCORE will be searched (this search excluding all of the PARTs); if no TITLEs are found there then the next level up will be searched and so on.</P>
+<P>Setting external=clear will cause a new display stack to be started for the part of the model that is enclosed by this element.  The effect is to isolate this part of the model from the rest as far as the display stack is concerned.  It is rarely needed.</P>
+<H3><A NAME="broaden">8.3.9. broaden</A></H3>
+<P>Specifies that, after ``foreach'' selects an element, it should then select the full extent of that element <I>from the original fourspace</I> (not just the subset of it that it was looking at).  Hence the element is ``broadened'' to its full value.</P>
+<P>``broaden'' may take a value, corresponding to another element name; if an element matching this latter name exists, and is above the element that ``foreach'' is trying to broaden, then the former element is only broadened within the scope of the latter one.  This should be used to disambiguate cases where ``broaden'' incorrectly `merges' elements that should have been separate.</P>
+<P>One application of the ``broaden'' parameter is in following links, as in:</P>
+<PRE>
+ pointer/link broaden/id/whole-entry broaden
+</PRE>
+<P>where an element called `whole-entry' contains an element called `id', which contains the same string as referenced elsewhere by one or more elements called `pointer' (one of which is being inspected at this point in the model).</P>
+<P>All links in this manner can be treated as bi-directional many-to-many mappings and read as needed.</P>
+<H2><A NAME="Changing the behaviour of child-element processing">8.4. Changing the behaviour of child-element processing</A></H2>
+<H3><A NAME="children-only">8.4.1. children-only</A></H3>
+<P>Causes only elements that are (direct or indirect) children of the given element to be considered; any markup <I>above</I> that element is not included in the subset.</P>
+<H3><A NAME="sequential">8.4.2. sequential</A></H3>
+<P>Causes each input element's immediate children to be processed sequentially, rather than being grouped by element name as would normally happen. This will often be used when processing documents that contain a mixture of different types of object in any order (as is the case with XHTML). Setting sequential implies children-only, and also that only an element's immediate children are considered by the next level of the model. As a special case, sequential=&quot;cdata&quot; additionally causes any cdata elements (at that level) to be copied from input to output.</P>
+<H3><A NAME="flatten">8.4.3. flatten</A></H3>
+<P>Destroy all depth information in the generated subsets. Used when you later want to divide the data in a manner that is depth-independent.  This usually occurs when there are two or more discrete types of data (e.g. words and music) that have some value to synchronise on (e.g. time) but it is not at the same level.  It would be possible to perform a ``flat search'' individually for each element, but usually there are a lot of them so it is easier to ``flatten'' everything.  Note that this can have unexpected effects on data that is hierarchical, such as mathematics.</P>
+<H3><A NAME="no-strip">8.4.4. no-strip</A></H3>
+<P>The markup that this element identifies is not removed before processing child elements.  For example,</P>
+<PRE>
+ &lt;X no-strip=&quot;1&quot; after=&quot;y&quot;&gt; &lt;X number=&quot;1&quot; after=&quot;z&quot; /&gt; &lt;/X&gt;
+</PRE>
+<P>is equivalent to:</P>
+<PRE>
+ &lt;X number=&quot;1&quot; after=&quot;zy&quot; /&gt; &lt;X start-at=&quot;2&quot; after=&quot;y&quot; /&gt;
+</PRE>
+<P>This can be useful for calling library modules that handle special cases (such as the first element) differently.</P>
+<H3><A NAME="merge">8.4.5. merge</A></H3>
+<P>Causes all elements (subsets) to be merged and processed as one.  Can be useful on occasions.  Can be combined with no-strip to provide a form of conditional processing depending on the number of any given element present, e.g.</P>
+<PRE>
+ X no-strip number=3 merge / (...)
+</PRE>
+<P>will execute (...) if and only if there are exactly 3 X's, but will not iterate for each X (you might want to process them in a different order, for example).</P>
+<H3><A NAME="include-rest">8.4.6. include-rest</A></H3>
+<P>The ``rest'' of the data (i.e. any data that was not covered by an instance of the given element) is normally discarded; setting ``include-rest'' will cause it to be included in <I>all</I> of the subsets.  This can be useful if it is needed later, for example, if there is a song with several verses and one copy of the music (or one chorus), and it is desired for each verse to be printed along with the music (or chorus).</P>
+<H3><A NAME="reverse">8.4.7. reverse</A></H3>
+<P>Reverses the order of the generated subsets before processing them.  Note that this reversal occurs <I>after</I> any selection with `start-at', `end-at', `number' or `renumber'.</P>
+<H2><A NAME="Recursion and subroutines">8.5. Recursion and subroutines</A></H2>
+<H3><A NAME="call">8.5.1. call</A></H3>
+<P>This is a means of adding recursion to the model. It behaves as though the model under the previous element named by this parameter is also under the current element.  Both recursive and non-recursive calling is supported.</P>
+<H3><A NAME="export-code">8.5.2. export-code</A></H3>
+<P>Causes the child elements of this model element to be available for ``call'' even after this element has finished.  Normally they would go out of scope. ``export-code'' can be used in conjunction with a nonsense element name to write a `library' of model fragments.</P>
+<H2><A NAME="Numbering and alternative markup">8.6. Numbering and alternative markup</A></H2>
+<H3><A NAME="count">8.6.1. count</A></H3>
+<P>Behaves as though there were an element in the input of the same name as this model element, whose value is the position count of the innermost such element that is currently in progress.  For example, the following CML fragment will begin each `verse' with a number:</P>
+<PRE>
+ verse / ( verse count after=&quot;.&quot;, ...
+</PRE>
+<H3><A NAME="if-changed">8.6.2. if-changed</A></H3>
+<P>Only process this element if its position has changed since last time round the loop.  This is used to read off an alternate set of markup that is independent from the main set of markup.  For example, the CML</P>
+<PRE>
+ page if-changed / ...
+</PRE>
+<P>will do something whenever ``page'' changes (which might indicate a physical page break in the original source material that is independent of the logical structure).</P>
+<H2><A NAME="Error checking">8.7. Error checking</A></H2>
+<H3><A NAME="expected">8.7.1. expected</A></H3>
+<P>Indicates that the element named in the model here is <I>expected</I>, that is, at least one of them should be found in the input at this point, and an error should be raised if not.  (Normally 4DML ignores model elements that are not found, since the model can specify what to do with certain elements <I>in the event that they exist</I>.)</P>
+<P>Using `expected' in appropriate places can catch most errors like running the wrong model on the wrong sort of data (e.g. trying to transform mathematics as though it were music).  It can also catch many mismatches between row lengths etc (if you have inputted two or more rows of data and you read them by column, and you say that each column is `expected' to have something from each of the row types you inputted, then there should be an error if one row is longer than the other).</P>
+<H2><A NAME="Miscellaneous">8.8. Miscellaneous</A></H2>
+<H3><A NAME="wildcard">8.8.1. wildcard</A></H3>
+<P>Specifies an element name that is to be treated as a ``wildcard'' that will match any element name (and will not remove that element from the subset generated).</P>
+<H3><A NAME="debugdump">8.8.2. debugdump</A></H3>
+<P>Adds the name of this top-level element to its `begin' attribute.  This can be used for debugging wildcards when using `nomarkup' (you can specify `debugdump' to see what the wildcard matches).</P>
+<H3><A NAME="python">8.8.3. python</A></H3>
+<P>Calls a given Python function on each contents string (not markup string) that is written to the output.  The contents is passed to the named function as a string, and the function's return value (which should also be a string) is used in its place.  This can be used to code arbitrary low-level filters for the data, to be applied during the model transform.</P>
+<P>The function named here should be defined in a Python module that is loaded with the `-python' command-line option.</P>
+<HR>
+<H1><A NAME="Author">9. Author</A></H1>
+<P>Copyright 2002-06 Silas S. Brown (Computer Lab, University of Cambridge, 15 JJ Thompson Avenue, Cambridge UK).</P>
+<P>No warranty.</P>
+</DIV>
+<DIV CLASS="footer">
+<DIV CLASS="navigate">
+</DIV>
+</DIV>
+
+</BODY>
+</HTML>
