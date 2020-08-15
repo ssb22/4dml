@@ -67,8 +67,8 @@ for N in $Commands; do
 done
 echo "Compiling"
 pushd $InstallDir >/dev/null
-python compile.py
-python -O compile.py
+python2 compile.py
+python2 -O compile.py
 if which emacs >/dev/null; then
   echo "Compiling emacs major mode"
   emacs -batch -f batch-byte-compile 4dml.el 2>/dev/null
@@ -77,7 +77,7 @@ elif which xemacs >/dev/null; then
   xemacs -batch -f batch-byte-compile 4dml.el 2>/dev/null
 fi
 
-# export EmacsFile=$(python -c "import string;print string.replace(raw_input(),'FILE','$InstallDir/')" < 4dml.el)
+# export EmacsFile=$(python2 -c "import string;print string.replace(raw_input(),'FILE','$InstallDir/')" < 4dml.el)
 
 popd >/dev/null
 

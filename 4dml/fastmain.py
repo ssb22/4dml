@@ -1,4 +1,4 @@
-#!/usr/bin/python -O
+#!/usr/bin/python2 -O
 
 #    4DML Transformation Utility
 #
@@ -20,7 +20,7 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/python -O
+#!/usr/bin/python2 -O
 
 # **** Might not be in /usr/bin, but can't use /usr/bin/env
 # because only one argument allowed.  Need to get Install.sh
