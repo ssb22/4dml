@@ -2,8 +2,8 @@
 
 #    4DML Transformation Utility
 #
-#    (C) 2006 Silas S. Brown (University of Cambridge Computer Laboratory,
-#        Cambridge, UK, http://www.cus.cam.ac.uk/~ssb22 )
+#    (C) 2002-2006 Silas S. Brown (University of Cambridge Computer Laboratory,
+#        Cambridge, UK, http://ssb22.user.srcf.net )
 #
 #     This program is free software; you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 
 export BinDir=/usr/local/bin
 export ManDir=/usr/local/man
-export InfoDir=/usr/local/info
 export InstallDir=/usr/local/lib/site-python/4dml
 
 export Commands="fast4dml 4dml2.2 fast4dml2.2 cml2xml mml2xml"
@@ -35,12 +34,6 @@ echo "(overwriting anything that was there before)"
 echo "Commands will be installed in $BinDir"
 echo "(Commands: $Commands2)"
 echo "Manual pages will be installed in $ManDir/man1"
-if which install-info >/dev/null; then
-  echo "4dml Info page will be installed in $InfoDir"
-else
-  unset InfoDir
-  echo "Info pages will NOT be installed (install-info command not found)"
-fi
 echo
 echo "If you want to change any of these directories, edit"
 echo "the variables at the start of Install.sh."
@@ -77,19 +70,6 @@ elif which xemacs >/dev/null; then
   xemacs -batch -f batch-byte-compile 4dml.el 2>/dev/null
 fi
 
-# export EmacsFile=$(python2 -c "import string;print string.replace(raw_input(),'FILE','$InstallDir/')" < 4dml.el)
-
 popd >/dev/null
-
-if ! test a$InfoDir == a; then
-  echo "Installing info page"
-  mkdir -p $InfoDir
-  rm -f $InfoDir/4dml.info*
-  cp 4dml.info $InfoDir
-  pushd $InfoDir >/dev/null
-  install-info --section Miscellaneous Miscellaneous 4dml.info
-  gzip -9 4dml.info
-  popd >/dev/null
-fi
 
 echo "Finished."

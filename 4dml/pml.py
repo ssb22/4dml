@@ -2,8 +2,8 @@
 
 #    4DML Transformation Utility
 #
-#    (C) 2006 Silas S. Brown (University of Cambridge Computer Laboratory,
-#        Cambridge, UK, http://www.cus.cam.ac.uk/~ssb22 )
+#    (C) 2002-2006 Silas S. Brown (University of Cambridge Computer Laboratory,
+#        Cambridge, UK, http://ssb22.user.srcf.net )
 #
 #     This program is free software; you can redistribute it and/or modify
 #     it under the terms of the GNU General Public License as published by
