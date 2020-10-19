@@ -1,5 +1,3 @@
-# hack for jython:
-
 #    4DML Transformation Utility
 #
 #    (C) 2002-2006 Silas S. Brown (University of Cambridge Computer Laboratory,

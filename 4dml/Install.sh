@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/bin/bash
-
 export BinDir=/usr/local/bin
 export ManDir=/usr/local/man
 export InstallDir=/usr/local/lib/site-python/4dml

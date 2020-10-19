@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/env python2
-
 year = "2006"
 version = "0.691"
 # also update manual.txt (and header.txt if year changes)

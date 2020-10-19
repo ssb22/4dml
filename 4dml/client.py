@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/env python2
-
 # Default is to do it on the client, so import doTransform
 from server import doTransform,serverID
 import sys

@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/python2.2 -O
-
 # **** Might not be in /usr/bin, but can't use /usr/bin/env
 # because only one argument allowed.  Need to get Install.sh
 # to modify the 1st line depending on the system

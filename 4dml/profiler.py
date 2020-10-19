@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/env python2
-
 # python2 -O
 
 # This thing doesn't work - needs sorting out

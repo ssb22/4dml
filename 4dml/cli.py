@@ -20,8 +20,6 @@
 #     the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 #     Boston, MA 02111-1307, USA.
 
-#!/usr/bin/env python2
-
 from cml import cml2fs,cml2fs_embedded
 from xml_in import xmlFileToFourspace, xmlStringToFourspace
 import matrix, client
