@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-year = "2006"
+year = "2002-2006"
 version = "0.691"
 # also update manual.txt (and header.txt if year changes)
 
