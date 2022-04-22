@@ -1,0 +1,4 @@
+# -*- mode: makefile -*-
+# At least test it compiles:
+test:
+	cd 4dml && python2 compile.py >/dev/null
