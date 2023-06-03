@@ -2,3 +2,4 @@
 # At least test it compiles:
 test:
 	cd 4dml && python2.7 compile.py >/dev/null
+.PHONY: test
