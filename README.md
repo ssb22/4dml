@@ -9,4 +9,4 @@ The 4DML transformation utility can be used for the rapid prototyping of complex
 
 There is an in-depth description of 4DML in my PhD thesis, which has been published as a technical report UCAM-CL-TR-591 ([PDF format](http://www.cl.cam.ac.uk/TechReports/UCAM-CL-TR-591.pdf)).
 
-There is also a [reference manual in HTML format](4dml/manual.html) in this repository.
+There is also a [reference manual](4dml/manual.md) in this repository.
